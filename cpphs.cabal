@@ -1,14 +1,13 @@
+Cabal-Version: 1.18
 Name: cpphs
-Version: 1.20.9.1
-x-revision: 2
+Version: 1.20.10
 Copyright: 2004-2017, Malcolm Wallace
 License: LGPL
 License-File: LICENCE-LGPL
-Cabal-Version: >= 1.8
 Author: Malcolm Wallace <Malcolm.Wallace@me.com>
-Maintainer: Malcolm Wallace <Malcolm.Wallace@me.com>
-Homepage: http://projects.haskell.org/cpphs/
-bug-reports: https://github.com/malcolmwallace/cpphs/issues
+Maintainer: Andreas Abel
+-- homepage:
+bug-reports: https://github.com/haskell-pkg-janitors/cpphs/issues
 Synopsis: A liberalised re-implementation of cpp, the C pre-processor.
 Description:
     Cpphs is a re-implementation of the C pre-processor that is both
@@ -20,11 +19,21 @@ Description:
     pre-processors.  Additional features include: a plain-text mode;
     an option to unlit literate code files; and an option to turn
     off macro-expansion.
+    .
+    Old homepage: <https://archives.haskell.org/projects.haskell.org/cpphs/>
 Category: Development
 Build-type: Simple
-Extra-Source-Files: README, LICENCE-GPL, LICENCE-commercial, CHANGELOG, docs/cpphs.1, docs/index.html
+
+Extra-Doc-Files:
+  README.md
+  LICENCE-GPL
+  LICENCE-commercial
+  CHANGELOG.md
+  docs/cpphs.1
+  docs/index.html
 
 tested-with:
+  GHC == 9.14.1
   GHC == 9.12.2
   GHC == 9.10.2
   GHC == 9.8.4
@@ -39,23 +48,20 @@ tested-with:
   GHC == 8.2.2
   GHC == 8.0.2
 
-flag old-locale
-  description: If true, use old-locale, otherwise use time 1.5 or newer.
-  manual:      False
-  default:     False
+Source-Repository head
+    Type:     git
+    Location: https://github.com/haskell-pkg-janitors/cpphs.git
 
 Library
-    Build-Depends: base >= 4.3 && <5, directory <1.4, polyparse>=1.13 && <1.14
+    Hs-Source-Dirs: . new
 
-    if flag(old-locale)
-      Build-Depends:
-          old-locale  >=1.0.0.2 && <1.1
-        , time        >=0       && <1.5
-      Hs-Source-Dirs: . old
-
-    else
-      Build-Depends: time >=1.5 && <1.15
-      Hs-Source-Dirs: . new
+    Build-Depends:
+      -- GHC-shipped libraries
+        base      >= 4.9  && < 5
+      , directory            < 1.4
+      , time      >= 1.5  && < 2
+      -- Other libraries
+      , polyparse >= 1.13 && < 1.14
 
     Exposed-Modules:
         Language.Preprocessor.Cpphs
@@ -72,19 +78,19 @@ Library
         Language.Preprocessor.Cpphs.Tokenise
         TimeCompat
 
+    default-language: Haskell2010
+
 Executable cpphs
-    Build-Depends: base >=4.3 && <5, directory <1.4, polyparse>=1.13 && <1.14
+    Hs-Source-Dirs: . new
     Main-Is: cpphs.hs
 
-    if flag(old-locale)
-      Build-Depends:
-          old-locale  >=1.0.0.2 && <1.1
-        , time        >=0       && <1.5
-      Hs-Source-Dirs: . old
-
-    else
-      Build-Depends: time >=1.5 && <1.15
-      Hs-Source-Dirs: . new
+    Build-Depends:
+      -- GHC-shipped libraries
+        base      >= 4.9  && < 5
+      , directory            < 1.4
+      , time      >= 1.5  && < 2
+      -- Other libraries
+      , polyparse >= 1.13 && < 1.14
 
     Other-Modules:
         Language.Preprocessor.Cpphs
@@ -100,6 +106,4 @@ Executable cpphs
         Language.Preprocessor.Cpphs.Tokenise
         TimeCompat
 
-Source-Repository head
-    Type:     git
-    Location: https://github.com/hackage-trustees/malcolm-wallace-universe
+    default-language: Haskell2010

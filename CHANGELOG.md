@@ -1,6 +1,16 @@
+Version 1.20.10
+---------------
+
+_Andreas Abel, 2025-09-14_
+
+  * Drop support for GHC 7.
+  * Remove cabal flag `old-locale`.
+  * Compatibility with `{-# LANGUAGE RecordDotSyntax #-}` (Lennart Augustsson).
+  * Build tested with GHC 8.0 - 9.14 alpha1.
+
 Version 1.20
 ------------
-  * bugfixes for #if defined(FOO) && FOO(a,b)
+  * bugfixes for `#if defined(FOO) && FOO(a,b)`
   * (1.20.1): fix version number
   * (1.20.2): ensure all input/output is UTF8, regardless of locale
   * (1.20.3): detect an absolute windows path with a drive letter in a #include
